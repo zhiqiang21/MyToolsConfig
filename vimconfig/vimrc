@@ -1,0 +1,248 @@
+set nocompatible         "不要vim模仿vi模式，建议设置，否则会有很多不兼容的问题
+
+"加载插件配置
+if filereadable(expand("~/.vim/vimrc.bundles"))
+    source ~/.vim/vimrc.bundles
+endif
+
+filetype plugin indent on
+syntax enable
+syntax on                 "代码高亮
+colorscheme molokai       "主题配置.vim/colors/目录下文件名字
+set clipboard=unnamed     "复制时将内容添加到系统剪切板
+set pastetoggle=<F9>      "粘贴模式快捷键 set paste
+set background=dark       "主题背景为黑色
+set t_Co=256
+set history=200           "history: number of command-lines remembered
+set autoread              "当文件修改以后自动读入文件
+set shortmess=atI         " do not show initial page
+set nobackup              "不生成备份文件
+set noswapfile            "不生成交换文件
+set cursorcolumn          "高亮当前列
+set cursorline            "高亮当前行
+"set t_ti= t_te=          "vim退出时在屏幕上仍显示vim内容
+set mouse-=a              "禁用鼠标
+set selection=inclusive   "set selection=exclusive
+set selectmode=mouse,key
+set title                 " change the terminal's title
+set novisualbell          " don't beep
+set noerrorbells          " don't beep
+set t_vb=
+set tm=500
+set nostartofline         " keep cursor postion when switching between buffers
+
+set number " show line number
+set nowrap " disable wrap
+
+"set list
+"set listchars=tab:›\ ,trail:•,extends:❯,precedes:❮
+
+set showmatch         " show matched brackets
+set mat=2             " How many tenths of a second to blink when matching brackets
+
+set hlsearch          " highlight the searching words
+set ignorecase        " ingnore case when do searching
+
+set incsearch         " 增量显示搜索结果
+set smartcase         " ignore case if search pattern is all lowercase, case-sensitive otherwise
+
+set foldenable        " code folding
+set foldmethod=indent " options: manual, indent, expr, syntax, diff, marker
+set foldlevel=99
+
+set smartindent       " Do smart autoindenting when starting a new line
+set autoindent        " always set autoindenting on
+
+set tabstop=4         " Number of spaces that a <Tab> in the file counts for.
+set shiftwidth=4      " number of spaces to use for autoindenting
+set softtabstop=4     " Number of spaces that a <Tab> counts for while performing editing operations
+set smarttab
+set expandtab         " when typing <Tab>, use <space> instead
+set shiftround        " use multiple of shiftwidth when indenting with '<' and '>'
+
+set hidden            " A buffer becomes hidden when it is abandoned
+set wildmode=longest:full,full
+set ttyfast
+
+set relativenumber " show relative line number
+set ruler          " show the current line number and column number
+set showcmd        " show the current typing command
+set showmode       " 显示当前编辑器的状态
+set scrolloff=7    " Set 7 lines to the cursor - when moving vertically using j/k
+
+" File encode:encode for varied filetype
+set encoding=utf-8
+set fileencodings=utf-8,ucs-bom,cp936,gb18030,big5,euc-jp,euc-kr,latin1
+set helplang=en
+set termencoding=utf-8
+
+set ffs=unix,dos,mac         " Use Unix as the standard file type
+set formatoptions+=m
+set formatoptions+=B         " When joining lines, don't insert a space between two multi-byte characters.
+set completeopt=longest,menu " behaviour of insert mode completion
+set wildmenu                 " auto complete command
+set wildignore=**.o,*~,.swp,*.bak,*.pyc,*.class " Ignore compiled files
+
+set viminfo^=% " Remember info about open buffers on close
+set magic      " For regular expressions turn magic on
+
+set backspace=eol,start,indent               " Configure backspace so it acts as it should act
+set whichwrap+=<,>,h,l
+set pastetoggle=<F9>                         " when in insert mode, toggle between 'paste' and 'nopaste'
+
+"let &colorcolumn="80,".join(range(120,999),",")
+let &colorcolumn="80"
+
+autocmd InsertEnter * :set norelativenumber " 进入插入模式不显示相对行号
+autocmd InsertLeave * :set relativenumber   " 离开插入模式显示相对行号
+autocmd BufWrite * :FixWhitespace        "去掉行尾的空格
+
+"create undo file
+if has('persistent_undo')
+    set undofile                " So is persistent undo ...
+    set undolevels=1000         " Maximum number of changes that can be undone
+    set undoreload=10000        " Maximum number lines to save for undo on a buffer reload
+    set undodir=~/.undodir/
+endif
+
+
+if has('statusline')
+    set laststatus=2
+    set statusline=%<%f\                     " Filename
+    set statusline+=%w%h%m%r                 " Options
+    set statusline+=%{fugitive#statusline()} " Git Hotness
+    set statusline+=\ [%{&ff}/%Y]            " Filetype
+    set statusline+=\ [%{getcwd()}]          " Current dir
+    set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " Right aligned file nav info
+endif
+
+
+if has("autocmd")
+    au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endif
+au InsertLeave * set nopaste
+
+"close popup menu when leave insert mode
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
+inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
+inoremap <expr> <PageDown> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<PageDown>"
+inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
+
+autocmd FileType python set tabstop=4 shiftwidth=4 expandtab ai
+autocmd FileType javascript,json,css,scss,html set tabstop=4 shiftwidth=4 expandtab ai
+
+autocmd BufReadPre * if getfsize(expand("%")) > 10000000 | syntax off | endif
+
+" ----------------------------------------------------------------------------
+" Key Mappings:Customized keys
+" ----------------------------------------------------------------------------
+
+command! W w !sudo tee % > /dev/null
+
+"goto older/newer position in change list
+nnoremap <silent> ( g;
+nnoremap <silent> ) g,
+
+"replace currently selected text with default register without yanking it
+vnoremap p "_dP
+
+" use ctrl-c to copy to system clipboard
+vnoremap <C-c> "*y
+
+" use <C-V> to paste yanked content
+inoremap <C-V> <C-R>"
+
+"Treat long lines as break lines (useful when moving around in them)
+noremap j gj
+noremap k gk
+
+" better command line editing
+cnoremap <C-j> <t_kd>
+cnoremap <C-k> <t_ku>
+cnoremap <C-a> <Home>
+cnoremap <C-e> <End>
+
+"禁用方向键
+map <Left> <Nop>
+map <Right> <Nop>
+map <Up> <Nop>
+map <Down> <Nop>
+
+"Smart way to move between windows
+noremap <C-j> <C-W>j
+noremap <C-k> <C-W>k
+noremap <C-h> <C-W>h
+noremap <C-l> <C-W>l
+
+" Go to home and end using capitalized directions
+noremap H 0
+noremap L $
+noremap Y y$
+
+" Remap VIM 0 to first non-blank character
+noremap 0 ^
+
+" Speed up scrolling of the viewport slightly
+nnoremap <C-e> 2<C-e>
+nnoremap <C-y> 2<C-y>
+
+"no Highlight
+noremap <silent><leader>/ :nohls<CR>
+
+" I can type :help on my own, thanks.
+noremap <F1> <Esc>"
+
+nnoremap ; :
+nnoremap ' :b
+
+"Keep search pattern at the center of the screen."
+nnoremap <silent> n nzz
+nnoremap <silent> N Nzz
+nnoremap <silent> * *zz
+nnoremap <silent> # #zz
+nnoremap <silent> g* g*zz
+
+"Use 'm/M' to move among buffers
+noremap m :bn<CR>
+noremap M :bp<CR>
+
+" remap U to <C-r> for easier redo
+nnoremap U <C-r>
+
+" select all
+noremap <Leader>sa ggVG"
+
+nnoremap dp :diffput<CR>
+nnoremap dg :diffget<CR>
+
+" toggle between two buffers
+nnoremap t <C-^>
+
+"" Vmap for maintain Visual Mode after shifting > and <
+vnoremap < <gv
+vnoremap > >gv
+
+"" Move visual block
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+
+if has('macunix')
+    " pbcopy for OSX copy/paste
+    vnoremap <C-x> :!pbcopy<CR>
+    vnoremap <C-c> :w !pbcopy<CR><CR>
+endif
+
+hi! link SignColumn   LineNr
+hi! link ShowMarksHLl DiffAdd
+hi! link ShowMarksHLu DiffChange
+
+" for error highlight
+highlight clear SpellBad
+highlight SpellBad term=standout ctermfg=1 term=underline cterm=underline
+highlight clear SpellCap
+highlight SpellCap term=underline cterm=underline
+highlight clear SpellRare
+highlight SpellRare term=underline cterm=underline
+highlight clear SpellLocal
+highlight SpellLocal term=underline cterm=underline

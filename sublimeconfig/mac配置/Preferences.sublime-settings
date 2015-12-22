@@ -1,0 +1,27 @@
+{
+	"auto_complete_selector": "source, text",
+	"auto_match_enabled": true,
+	"close_windows_when_empty": true,
+	"color_scheme": "Packages/User/SublimeLinter/Next (SL).tmTheme",
+	"fade_fold_buttons": false,
+	"fold_buttons": true,
+	"font_face": "Monaco",
+	"font_size": 18,
+	"highlight_line": true,
+	"ignored_packages":
+	[
+		"CSS",
+		"Vintage"
+	],
+	"match_brackets_angle": true,
+	"open_files_in_new_window": false,
+	"save_on_focus_lost": true,
+	"show_encoding": true,
+	"smart_indent": false,
+	"spell_check": false,
+	"tab_size": 4,
+	"theme": "Soda Dark 3.sublime-theme",
+	"translate_tabs_to_spaces": true,
+	"trim_trailing_white_space_on_save": true,
+	"word_wrap": true
+}

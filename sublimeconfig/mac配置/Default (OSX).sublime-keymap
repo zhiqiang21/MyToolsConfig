@@ -1,0 +1,60 @@
+[
+    // chrome 中打开
+    {
+        "keys": ["f2"],
+        "command": "side_bar_files_open_with",
+        "args": {
+            "paths": [],
+            "application": "/Applications/Google Chrome.app",
+            "extensions": ".*"
+        }
+    },
+    // firefox中打开
+    {
+        "keys": ["f3"],
+        "command": "side_bar_files_open_with",
+        "args": {
+            "paths": [],
+            "application": "/Applications/FirefoxDeveloperEdition.app",
+            "extensions": ".*"
+        }
+    },
+    //指定SublimeREPL的使用
+    {
+        "keys": ["f5"],
+        "caption": "SublimeREPL: Python - RUN current file",
+        "command": "run_existing_window_command",
+        "args": {
+            "id": "repl_python_run",
+            "file": "config/Python/Main.sublime-menu"
+        }
+    },
+    //autoprefixer快捷键设置
+    { "keys": ["command+alt+p"], "command": "autoprefixer" },
+
+    // //jsformat快捷键
+    // {
+    //     "keys": ["command+alt+l"], "command": "js_format",
+    //     "context": [{"key": "selector", "operator": "equal", "operand": "source.js,source.json"}]
+    // },
+    // // cssformat Convert to Expanded Format
+    // {
+    //     "keys": ["command+alt+l"],
+    //     "command": "css_format",
+    //     "args": {
+    //         "action": "expand"
+    //     }
+    // },
+
+    //html-css-jsprettify插件快捷键
+    {"keys": ["command+alt+l"],"command": "htmlprettify"},
+
+
+    //svn快捷键
+    { "keys": ["command+u"], "command": "svn_update" }
+    ,{ "keys": ["command+t"], "command": "svn_commit" }
+    ,{ "keys": ["alt+r"], "command": "svn_revert" }
+    ,{ "keys": ["command+l"], "command": "svn_log" }
+    ,{ "keys": ["alt+d"], "command": "svn_diff" }
+    ,{ "keys": ["alt+ctrl+a"], "command": "alignment" }
+]

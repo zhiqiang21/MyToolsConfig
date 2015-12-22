@@ -1,0 +1,373 @@
+" ----------------------------------------------------------------------------
+" Vim-Plug:Plgin management and setting
+" ----------------------------------------------------------------------------
+call plug#begin('~/.vim/bundle')
+
+let mapleader = ','
+let g:mapleader = ','
+
+if !exists('g:bigvim_minor_plugins')
+    let g:bigvim_minor_plugins=['php', 'css',]
+endif
+
+" ----------------------------------------------------------------------------
+" vim plugin bundle control, command model
+" :PlugInstall     install
+" :PlugInstall!    update
+" :PlugClean       remove plugin not in list
+" ----------------------------------------------------------------------------
+
+" display
+Plug 'Valloric/MatchTagAlways'
+Plug 'bling/vim-airline'
+Plug 'gorodinskiy/vim-coloresque'
+Plug 'airblade/vim-gitgutter'
+Plug 'inside/vim-search-pulse'
+
+" fast move
+Plug 'vim-scripts/matchit.zip'
+Plug 'Lokaltog/vim-easymotion'
+Plug 'unblevable/quick-scope'
+
+" fast edit
+Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+Plug 'godlygeek/tabular'
+Plug 'tpope/vim-repeat'
+Plug 'gcmt/wildfire.vim'
+Plug 'Raimondi/delimitMate'
+Plug 'alvan/vim-closetag'
+Plug 'mattn/emmet-vim'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'tpope/vim-surround'
+Plug 'bronson/vim-trailing-whitespace'
+Plug 'scrooloose/nerdcommenter'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'Chiel92/vim-autoformat', {'on': 'Autoformat'}
+
+" tools
+Plug 'Valloric/YouCompleteMe'
+Plug 'scrooloose/syntastic'
+Plug 'majutsushi/tagbar'
+Plug 'plasticboy/vim-markdown'
+Plug 'tpope/vim-obsession' | Plug 'dhruvasagar/vim-prosession'
+Plug 'szw/vim-maximizer'
+Plug 'thinca/vim-quickrun'
+Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
+Plug 'sjl/gundo.vim', {'on': 'GundoToggle'}
+Plug 'ruanyl/vim-fidget', {'do': 'npm install'}
+Plug 'MattesGroeger/vim-bookmarks'
+Plug 'ruanyl/vim-fixmyjs', {'on': 'Fixmyjs'}
+Plug 'moll/vim-bbye'
+Plug 'tpope/vim-fugitive'
+Plug 'vim-scripts/BufOnly.vim'
+
+" theme
+Plug 'altercation/vim-colors-solarized'
+Plug 'tomasr/molokai'
+
+" search
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'tacahiroy/ctrlp-funky'
+Plug 'dyng/ctrlsf.vim', {'on': '<Plug>CtrlSFVwordExec'}
+Plug 'ggVGc/vim-fuzzysearch'
+Plug 'rking/ag.vim'
+
+" javascript
+Plug 'pangloss/vim-javascript', {'branch': 'develop'}
+Plug 'marijnh/tern_for_vim', {'do': 'npm install'}
+Plug 'othree/javascript-libraries-syntax.vim'
+Plug 'kchmck/vim-coffee-script'
+Plug 'heavenshell/vim-jsdoc', {'for': ['javascript', 'jsx']}
+Plug 'burnettk/vim-angular'
+Plug 'mxw/vim-jsx'
+
+" python
+Plug 'klen/python-mode'                          "python开发插件
+
+
+" CSS
+if count(g:bigvim_minor_plugins, 'css')
+    Plug 'ruanyl/vim-caniuse', {'on': 'Caniuse', 'for': ['css', 'html']}
+    Plug 'hail2u/vim-css3-syntax'
+endif
+
+"Load local plugins
+if filereadable(expand("~/.vim/vimrc.bundles.local"))
+    source ~/.vim/vimrc.bundles.local
+endif
+call plug#end()
+
+" ----------------------------------------------------------------------------
+" NERDTree
+" ----------------------------------------------------------------------------
+nnoremap <leader>e :NERDTreeToggle<CR>
+let NERDTreeHighlightCursorline=1
+let NERDTreeQuitOnOpen=1
+" 当不带参数打开 Vim 时自动加载项目树
+autocmd vimenter * NERDTree
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+"忽略显示的文件列表
+let NERDTreeIgnore=[ '\.pyc$', '\.pyo$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$', '^\.svn$', '^\.hg$' ]
+"close vim if the only window left open is a NERDTree
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | end
+
+" ----------------------------------------------------------------------------
+" tagbar
+" require ctags, jsctags
+" npm install -g git+https://github.com/ramitos/jsctags.git
+" ----------------------------------------------------------------------------
+let g:tagbar_type_javascript = {
+            \ 'ctagsbin' : 'jsctags'
+            \ }
+nnoremap <leader>t :TagbarToggle<CR>
+let g:tagbar_autofocus = 1
+let g:tagbar_width = 50
+
+" ----------------------------------------------------------------------------
+" ctrlp.vim
+" ----------------------------------------------------------------------------
+nnoremap <leader>m :CtrlPMRU<CR>
+nnoremap <leader>b :CtrlPBuffer<CR>
+let g:ctrlp_custom_ignore = {
+            \ 'dir':  '\v[\/](node_modules|target|dist)|\.(git|hg|svn|rvm)$',
+            \ 'file': '\v\.(exe|so|dll|zip|tar|tar.gz)$',
+            \ }
+let g:ctrlp_follow_symlinks=1
+
+" ----------------------------------------------------------------------------
+" ctrlp-funky
+" Mapping: <Leader>fu
+" ----------------------------------------------------------------------------
+let g:ctrlp_funky_matchtype = 'path'
+let g:ctrlp_funky_syntax_highlight = 1
+nnoremap <Leader>fu :CtrlPFunky<Cr>
+
+" ----------------------------------------------------------------------------
+" ctrlsf.vim
+" ----------------------------------------------------------------------------
+vmap <Leader>s <Plug>CtrlSFVwordExec
+
+" ----------------------------------------------------------------------------
+" ag.vim
+" ----------------------------------------------------------------------------
+nnoremap <Leader><Leader>a :Ag!<space>
+let g:ag_working_path_mode='r'
+
+" ----------------------------------------------------------------------------
+" vim-fuzzysearch
+" ----------------------------------------------------------------------------
+nnoremap <leader><leader>/ :FuzzySearch<cr>
+
+" ----------------------------------------------------------------------------
+" vim-airline
+" ----------------------------------------------------------------------------
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail'
+let g:airline#extensions#tabline#buffer_nr_show = 1
+
+" ----------------------------------------------------------------------------
+" vim-trailing-whitespace
+" Mapping: <leader><space>
+" ----------------------------------------------------------------------------
+map <leader><space> :FixWhitespace<cr>
+"au BufWrite * :FixWhitespace         "保存时清楚行尾的空格"
+
+" ----------------------------------------------------------------------------
+" vim-bookmarks
+" ----------------------------------------------------------------------------
+let g:bookmark_no_default_key_mappings = 1
+nnoremap <Leader><Leader>m :BookmarkToggle<CR>
+nnoremap <Leader>i :BookmarkAnnotate<CR>
+nnoremap <Leader>a :BookmarkShowAll<CR>
+nnoremap <Leader>j :BookmarkNext<CR>
+nnoremap <Leader>k :BookmarkPrev<CR>
+nnoremap <Leader>c :BookmarkClear<CR>
+nnoremap <Leader>x :BookmarkClearAll<CR>
+
+" ----------------------------------------------------------------------------
+" vim-maximizer
+" ----------------------------------------------------------------------------
+nnoremap <tab> :MaximizerToggle<CR>
+
+" ----------------------------------------------------------------------------
+" vim-colors-solarized
+" ----------------------------------------------------------------------------
+let g:solarized_termcolors=16
+let g:solarized_termtrans=1
+let g:solarized_contrast="high"
+let g:solarized_visibility="high"
+
+" ----------------------------------------------------------------------------
+" vim-easymotion
+" ----------------------------------------------------------------------------
+map <space> <Plug>(easymotion-s2)
+map  / <Plug>(easymotion-sn)
+omap / <Plug>(easymotion-tn)
+let g:EasyMotion_smartcase = 1
+
+" ----------------------------------------------------------------------------
+" wildfire.vim
+" Mapping: <Enter>
+" ----------------------------------------------------------------------------
+let g:wildfire_objects = {
+            \ "*" : ["i'", 'i"', "i)", "i]", "i}", "ip"],
+            \ "html,xml" : ["at"],
+            \ }
+let g:wildfire_fuel_map = "<ENTER>"
+let g:wildfire_water_map = "<BS>"
+
+" ----------------------------------------------------------------------------
+" YouCompleteMe
+" ----------------------------------------------------------------------------
+let g:ycm_autoclose_preview_window_after_completion = 1
+"let g:ycm_complete_in_strings = 1
+let g:ycm_complete_in_comments = 1
+let g:ycm_key_list_select_completion = ['<Tab>', '<C-j>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']
+let g:ycm_semantic_triggers =  {
+            \   'c' : ['->', '.'],
+            \   'objc' : ['->', '.'],
+            \   'ocaml' : ['.', '#'],
+            \   'cpp,objcpp' : ['->', '.', '::'],
+            \   'perl' : ['->'],
+            \   'php' : ['->', '::', '(', 'use ', 'namespace ', '\'],
+            \   'cs,java,typescript,javascript,d,python,perl6,scala,vb,elixir,go' : ['.'],
+            \   'html': ['<', '"', '</', ' '],
+            \   'vim' : ['re![_a-za-z]+[_\w]*\.'],
+            \   'ruby' : ['.', '::'],
+            \   'lua' : ['.', ':'],
+            \   'erlang' : [':'],
+            \   'haskell' : ['.', 're!.'],
+            \   'css': [ 're!^\s{2,4}', 're!:\s+' ],
+            \ }
+
+"快捷键配置
+""跳转声明
+nnoremap <leader>gl :YcmCompleter GoToDeclaration<CR>
+"跳转定义
+nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
+""跳转定义和声明
+nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
+let g:ycm_error_symbol = '>>'
+let g:ycm_warning_symbol = '>*'
+
+autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+
+" ----------------------------------------------------------------------------
+" ultisnips
+" ----------------------------------------------------------------------------
+let g:UltiSnipsExpandTrigger="<c-\\>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" ----------------------------------------------------------------------------
+" delimitMate
+" ----------------------------------------------------------------------------
+let delimitMate_matchpairs = "(:),[:],{:}"
+let delimitMate_expand_cr = 1
+
+" ----------------------------------------------------------------------------
+" tabular
+" ----------------------------------------------------------------------------
+nmap <Leader>a= :Tabularize /=<Cn>
+vmap <Leader>a= :Tabularize /=<CR>
+nmap <Leader>a: :Tabularize /:<CR>
+vmap <Leader>a: :Tabularize /:<CR>
+nmap <Leader>a" :Tabularize /"<CR>
+vmap <Leader>a" :Tabularize /"<CR>
+
+" ----------------------------------------------------------------------------
+" syntastic
+" ----------------------------------------------------------------------------
+"au BufWrite * :Errors        "保存文件时显示错误面板
+
+let g:syntastic_error_symbol='✗'
+let g:syntastic_warning_symbol='⚠'
+let g:syntastic_style_error_symbol='~'
+let g:syntastic_style_warning_symbol='⚠'
+let g:syntastic_check_on_open=1
+let g:syntastic_enable_highlighting = 0
+let g:syntastic_javascript_checkers = ['jshint']
+let g:syntastic_css_checkers = ['csslint']
+
+" ----------------------------------------------------------------------------
+" vim-markdown
+" ----------------------------------------------------------------------------
+let g:vim_markdown_folding_disabled=1
+let g:vim_markdown_no_default_key_mappings=1
+let g:vim_markdown_frontmatter=1
+
+" ----------------------------------------------------------------------------
+" vim-jsx
+" ----------------------------------------------------------------------------
+let g:jsx_ext_required = 0 " Allow JSX in normal JS files"
+
+" ----------------------------------------------------------------------------
+" vim-jsdoc
+" ----------------------------------------------------------------------------
+let g:jsdoc_default_mapping = 0
+autocmd FileType javascript nnoremap <Leader><Leader>d :JsDoc<CR>
+
+" ----------------------------------------------------------------------------
+" tern_for_vim
+" ----------------------------------------------------------------------------
+let tern_show_signature_in_pum = 1
+let tern_show_argument_hints = 'on_hold'
+autocmd FileType javascript nnoremap <leader>d :TernDef<CR>
+autocmd FileType javascript setlocal omnifunc=tern#Complete
+
+"自动补全设置  <c-o> 触发全局变量的自动补全
+function! MyTabFunction ()
+    let line = getline('.')
+    let substr = strpart(line, -1, col('.')+1)
+    let substr = matchstr(substr, "[^ \t]*$")
+    if strlen(substr) == 0
+        return "\<tab>"
+    endif
+    return pumvisible() ? "\<c-n>" : "\<c-x>\<c-o>"
+endfunction
+inoremap <tab> <c-r>=MyTabFunction()<cr>
+inoremap <c-o> <c-x><c-o>
+
+" ----------------------------------------------------------------------------
+" padawan.vim
+" Generate Index: :call padawan#GenerateIndex()
+" Start Server: :call padawan#StartServer()
+" Stop Server: :call padawan#StopServer()
+" Restart Server: :call padawan#RestartServer()
+" cd ~/.vim/bundle/padawan.vim/padawan.php && composer install
+" ----------------------------------------------------------------------------
+
+" ----------------------------------------------------------------------------
+" gundo.vim
+" ----------------------------------------------------------------------------
+nnoremap <leader>h :GundoToggle<CR>
+let g:gundo_auto_preview = 0
+
+" ----------------------------------------------------------------------------
+" vim-autoformat
+"require: npm install -g js-beautify
+" ----------------------------------------------------------------------------
+autocmd FileType javascript,json,html,css,scss,py noremap  <F3> :Autoformat<cr>
+"au BufWrite * :Autoformat         "保存的时候格式化当前文件"
+
+" ----------------------------------------------------------------------------
+" vim-bbye
+" ----------------------------------------------------------------------------
+nnoremap qq :Bdelete<cr>
+
+" ----------------------------------------------------------------------------
+" BufOnly.vim
+" ----------------------------------------------------------------------------
+nnoremap <silent> qo :BufOnly<CR>
+
+" ----------------------------------------------------------------------------
+" vim-multiple-cursors
+" ----------------------------------------------------------------------------
+let g:multi_cursor_next_key='<C-n>'
+let g:multi_cursor_prev_key='<C-p>'
+let g:multi_cursor_skip_key='<C-x>'
+let g:multi_cursor_quit_key='<Esc>'
