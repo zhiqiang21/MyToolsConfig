@@ -1,0 +1,7 @@
+#patch:
+#    "menu/page_size": 7
+patch:
+  menu:
+    page_size: 8
+
+
