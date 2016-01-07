@@ -213,3 +213,9 @@ Sublime 侧边栏增强插件。
 
 ----------
 **如果您觉得不错，请访问 github（[点我](https://github.com/zhiqiang21/MyToolsConfig)） 地址给我一颗星。谢谢啦！**
+
+<span style="color:red;font-size:30px;">如果您觉得对您有帮助，请点击下面的 **star**  给我一颗星。谢谢啦！<span>
+
+<a class="github-button" href="https://github.com/zhiqiang21" data-style="mega" data-count-href="/zhiqiang21/followers" data-count-api="/users/zhiqiang21#followers" data-count-aria-label="# followers on GitHub" aria-label="Follow @zhiqiang21 on GitHub">Follow @zhiqiang21</a><a class="github-button" href="https://github.com/zhiqiang21/MyToolsConfig" data-style="mega" data-count-href="/zhiqiang21/MyToolsConfig/stargazers" data-count-api="/repos/zhiqiang21/MyToolsConfig#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star zhiqiang21/MyToolsConfig on GitHub">Star</a><a class="github-button" href="https://github.com/zhiqiang21/MyToolsConfig" data-style="mega" data-count-href="/zhiqiang21/MyToolsConfig/watchers" data-count-api="/repos/zhiqiang21/MyToolsConfig#subscribers_count" data-count-aria-label="# watchers on GitHub" aria-label="Watch zhiqiang21/MyToolsConfig on GitHub">Watch</a>
+
+<script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
