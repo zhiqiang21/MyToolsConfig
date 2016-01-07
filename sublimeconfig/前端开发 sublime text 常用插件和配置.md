@@ -212,4 +212,4 @@ Sublime 侧边栏增强插件。
 
 
 ----------
-**如果您觉得不错，请访问 github（[点我](https://github.com/zhiqiang21/blog)） 地址给我一颗星。谢谢啦！**
+**如果您觉得不错，请访问 github（[点我](https://github.com/zhiqiang21/MyToolsConfig)） 地址给我一颗星。谢谢啦！**
