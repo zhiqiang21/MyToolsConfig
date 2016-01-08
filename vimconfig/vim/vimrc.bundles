@@ -60,6 +60,9 @@ Plug 'ruanyl/vim-fixmyjs', {'on': 'Fixmyjs'}
 Plug 'moll/vim-bbye'
 Plug 'tpope/vim-fugitive'
 Plug 'vim-scripts/BufOnly.vim'
+Plug 'tmhedberg/SimpylFold'
+Plug 'asins/vimcdoc'                   "中文文档
+
 
 " theme
 Plug 'altercation/vim-colors-solarized'
@@ -104,9 +107,9 @@ nnoremap <leader>e :NERDTreeToggle<CR>
 let NERDTreeHighlightCursorline=1
 let NERDTreeQuitOnOpen=1
 " 当不带参数打开 Vim 时自动加载项目树
-autocmd vimenter * NERDTree
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+"autocmd vimenter * NERDTree
+"autocmd StdinReadPre * let s:std_in=1
+"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 "忽略显示的文件列表
 let NERDTreeIgnore=[ '\.pyc$', '\.pyo$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$', '^\.svn$', '^\.hg$' ]
 "close vim if the only window left open is a NERDTree
@@ -233,7 +236,7 @@ let g:ycm_semantic_triggers =  {
             \   'cpp,objcpp' : ['->', '.', '::'],
             \   'perl' : ['->'],
             \   'php' : ['->', '::', '(', 'use ', 'namespace ', '\'],
-            \   'cs,java,typescript,javascript,d,python,perl6,scala,vb,elixir,go' : ['.'],
+            \   'cs,java,typescript,javascript,d,python,perl6,scala,vb,elixir,go' : ['.', 're!(?=[a-zA-Z]{3,4})'],
             \   'html': ['<', '"', '</', ' '],
             \   'vim' : ['re![_a-za-z]+[_\w]*\.'],
             \   'ruby' : ['.', '::'],
@@ -241,6 +244,7 @@ let g:ycm_semantic_triggers =  {
             \   'erlang' : [':'],
             \   'haskell' : ['.', 're!.'],
             \   'css': [ 're!^\s{2,4}', 're!:\s+' ],
+            \   'javascript': ['.', 're!(?=[a-zA-Z]{3,4})'],
             \ }
 
 "快捷键配置
@@ -253,8 +257,8 @@ nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
 let g:ycm_error_symbol = '>>'
 let g:ycm_warning_symbol = '>*'
 
-autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html setlocal omnifunc=htmlcomplete#CompleteTags
 
 " ----------------------------------------------------------------------------
 " ultisnips
@@ -291,7 +295,6 @@ let g:syntastic_style_warning_symbol='⚠'
 let g:syntastic_check_on_open=1
 let g:syntastic_enable_highlighting = 0
 let g:syntastic_javascript_checkers = ['jshint']
-let g:syntastic_css_checkers = ['csslint']
 
 " ----------------------------------------------------------------------------
 " vim-markdown
@@ -317,6 +320,8 @@ autocmd FileType javascript nnoremap <Leader><Leader>d :JsDoc<CR>
 let tern_show_signature_in_pum = 1
 let tern_show_argument_hints = 'on_hold'
 autocmd FileType javascript nnoremap <leader>d :TernDef<CR>
+" 显示文档
+autocmd FileType javascript nnoremap <leader>tnd :TernDoc<cr>
 autocmd FileType javascript setlocal omnifunc=tern#Complete
 
 "自动补全设置  <c-o> 触发全局变量的自动补全
@@ -371,3 +376,10 @@ let g:multi_cursor_next_key='<C-n>'
 let g:multi_cursor_prev_key='<C-p>'
 let g:multi_cursor_skip_key='<C-x>'
 let g:multi_cursor_quit_key='<Esc>'
+
+
+" ----------------------------------------------------------------------------
+" simplefold
+" ----------------------------------------------------------------------------
+let g:SimpylFold_docstring_preview=1
+

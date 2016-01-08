@@ -47,7 +47,7 @@ set incsearch         " 增量显示搜索结果
 set smartcase         " ignore case if search pattern is all lowercase, case-sensitive otherwise
 
 set foldenable        " code folding
-set foldmethod=indent " options: manual, indent, expr, syntax, diff, marker
+set foldmethod=indent  " options: manual, indent, expr, syntax, diff, marker
 set foldlevel=99
 
 set smartindent       " Do smart autoindenting when starting a new line
@@ -73,7 +73,7 @@ set scrolloff=7    " Set 7 lines to the cursor - when moving vertically using j/
 " File encode:encode for varied filetype
 set encoding=utf-8
 set fileencodings=utf-8,ucs-bom,cp936,gb18030,big5,euc-jp,euc-kr,latin1
-set helplang=en
+set helplang=cn
 set termencoding=utf-8
 
 set ffs=unix,dos,mac         " Use Unix as the standard file type
