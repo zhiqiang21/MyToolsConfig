@@ -324,19 +324,6 @@ autocmd FileType javascript nnoremap <leader>d :TernDef<CR>
 autocmd FileType javascript nnoremap <leader>tnd :TernDoc<cr>
 autocmd FileType javascript setlocal omnifunc=tern#Complete
 
-"自动补全设置  <c-o> 触发全局变量的自动补全
-function! MyTabFunction ()
-    let line = getline('.')
-    let substr = strpart(line, -1, col('.')+1)
-    let substr = matchstr(substr, "[^ \t]*$")
-    if strlen(substr) == 0
-        return "\<tab>"
-    endif
-    return pumvisible() ? "\<c-n>" : "\<c-x>\<c-o>"
-endfunction
-inoremap <tab> <c-r>=MyTabFunction()<cr>
-inoremap <c-o> <c-x><c-o>
-
 " ----------------------------------------------------------------------------
 " padawan.vim
 " Generate Index: :call padawan#GenerateIndex()
@@ -383,3 +370,12 @@ let g:multi_cursor_quit_key='<Esc>'
 " ----------------------------------------------------------------------------
 let g:SimpylFold_docstring_preview=1
 
+
+
+" ----------------------------------------------------------------------------
+" vim-surround
+" ----------------------------------------------------------------------------
+" cs"'  修改双引号为单引号
+" ds"   删除双引号
+" cst"  修改环绕的字符串    <p>jjjjj  </p>  :q
+"
